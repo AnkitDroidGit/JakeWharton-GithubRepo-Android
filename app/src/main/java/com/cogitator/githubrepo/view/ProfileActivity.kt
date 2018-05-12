@@ -8,13 +8,15 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import com.cogitator.githubrepo.R
+import com.cogitator.githubrepo.model.Repo
 import com.cogitator.githubrepo.model.UserProfile
 import com.cogitator.githubrepo.utils.loading
 import com.cogitator.githubrepo.viewModel.UserViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.user_info.*
+import kotlinx.android.synthetic.main.user_info_image.*
 import kotlinx.android.synthetic.main.user_profile.*
 
 /**
@@ -23,27 +25,28 @@ import kotlinx.android.synthetic.main.user_profile.*
 class ProfileActivity : AppCompatActivity() {
     private var model: UserViewModel? = null
     private var subscriptions = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_profile)
-        setUpToolbar()
+//        setUpToolbar()
         model = ViewModelProviders.of(this).get(UserViewModel::class.java)
         print("Model $model")
 
     }
 
     private fun setUpToolbar() {
-        if (toolbar != null) {
-            val toolbar = toolbar as android.support.v7.widget.Toolbar
-            toolbar.title = ""
-            setSupportActionBar(toolbar)
-            supportActionBar?.apply {
-                setDisplayShowTitleEnabled(false)
-                setHomeButtonEnabled(false)
-                setDisplayHomeAsUpEnabled(false)
-            }
-        }
+
+//        val toolbar = toolbar as android.support.v7.widget.Toolbar
+//        toolbar.title = ""
+//        setSupportActionBar(toolbar)
+//        supportActionBar?.apply {
+//            setDisplayShowTitleEnabled(false)
+//            setHomeButtonEnabled(false)
+//            setDisplayHomeAsUpEnabled(false)
+//        }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -69,7 +72,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateProfile(userProfile: UserProfile) {
         val fadeIn = createAnimation()
-        profile?.loading(userProfile.avatarUrl)
+        profile_pic?.loading(userProfile.avatarUrl)
 
         if (userProfile.name.trim().isBlank()) txt_displayname.visibility = View.GONE else {
             txt_displayname.apply {
@@ -96,21 +99,21 @@ class ProfileActivity : AppCompatActivity() {
                 text = userProfile.company
             }
         }
-        if (userProfile.location.isNullOrEmpty()) txt_location.visibility = View.GONE else {
+        if (userProfile.location.isNullOrEmpty()) txt_location?.visibility = View.GONE else {
             txt_location?.apply {
                 visibility = View.VISIBLE
                 startAnimation(fadeIn)
                 text = userProfile.location
             }
         }
-        if (userProfile.email.isNullOrEmpty()) txt_email.visibility = View.GONE else {
+        if (userProfile.email.isNullOrEmpty()) txt_email?.visibility = View.GONE else {
             txt_email?.apply {
                 visibility = View.VISIBLE
                 startAnimation(fadeIn)
                 text = userProfile.email
             }
         }
-        if (userProfile.blog.isNullOrEmpty()) txt_blog.visibility = View.GONE else {
+        if (userProfile.blog.isNullOrEmpty()) txt_blog?.visibility = View.GONE else {
             txt_blog?.apply {
                 visibility = View.VISIBLE
                 startAnimation(fadeIn)
@@ -137,12 +140,23 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateUI(repos: List<Repo>) {
+        if (recyclerView_repo.adapter == null)
+            recyclerView_repo.adapter = RepoAdapter(null)
+        val adapter = recyclerView_repo.adapter as RepoAdapter
+
+        with(adapter) {
+            clearItems()
+            addItems(repos)
+            // showLoader(false)
+
+        }
+    }
+
     private fun createAnimation(): Animation {
         val fadeIn = AlphaAnimation(0.0f, 1.0f)
         fadeIn.duration = 1200
         fadeIn.fillAfter = true
         return fadeIn
     }
-
-
 }
