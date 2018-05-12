@@ -15,7 +15,7 @@ import com.cogitator.githubrepo.viewModel.UserViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.user_info.*
+import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.user_info_image.*
 import kotlinx.android.synthetic.main.user_profile.*
 
@@ -29,7 +29,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_profile)
-//        setUpToolbar()
+        setUpToolbar()
         model = ViewModelProviders.of(this).get(UserViewModel::class.java)
         print("Model $model")
 
@@ -37,14 +37,14 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setUpToolbar() {
 
-//        val toolbar = toolbar as android.support.v7.widget.Toolbar
-//        toolbar.title = ""
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.apply {
-//            setDisplayShowTitleEnabled(false)
-//            setHomeButtonEnabled(false)
-//            setDisplayHomeAsUpEnabled(false)
-//        }
+        val toolbar = toolbar as android.support.v7.widget.Toolbar
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setHomeButtonEnabled(false)
+            setDisplayHomeAsUpEnabled(false)
+        }
     }
 
 
