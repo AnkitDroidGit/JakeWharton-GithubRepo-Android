@@ -1,6 +1,6 @@
 package com.cogitator.githubrepo.di.module
 
-import com.cogitator.githubrepo.PayCogApp
+import com.cogitator.githubrepo.PayConiqApp
 import com.cogitator.githubrepo.network.IRetrofit
 import dagger.Module
 import dagger.Provides
@@ -12,7 +12,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.IOException
-import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
@@ -20,12 +19,12 @@ import javax.inject.Singleton
  */
 
 @Module
-class NetworkModule(private val payCogApp: PayCogApp) {
+class NetworkModule(private val payCogApp: PayConiqApp) {
 
     @Provides
     @Singleton
     fun getRetrofit(): IRetrofit {
-        PayCogApp.appComponent.inject(this)
+        PayConiqApp.appComponent.inject(this)
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         val httpCacheDirectory = File(payCogApp.cacheDir, "responses")

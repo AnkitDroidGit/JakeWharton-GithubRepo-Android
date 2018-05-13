@@ -1,10 +1,9 @@
 package com.cogitator.githubrepo.model.data
 
 import android.view.View
-import com.cogitator.githubrepo.PayCogApp
+import com.cogitator.githubrepo.PayConiqApp
 import com.google.gson.annotations.SerializedName
 import io.realm.*
-import io.realm.annotations.PrimaryKey
 import javax.inject.Inject
 
 
@@ -204,7 +203,7 @@ class LocalRepository @Inject constructor() {
     private var realm: Realm
 
     init {
-        Realm.init(PayCogApp().getContext())
+        Realm.init(PayConiqApp().getContext())
 
         val realmConfiguration = RealmConfiguration.Builder().build()
         // Create a new empty instance of Realm

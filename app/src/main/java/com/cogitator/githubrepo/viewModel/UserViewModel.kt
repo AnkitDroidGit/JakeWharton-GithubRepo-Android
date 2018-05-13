@@ -1,7 +1,7 @@
 package com.cogitator.githubrepo.viewModel
 
 import android.arch.lifecycle.ViewModel
-import com.cogitator.githubrepo.PayCogApp
+import com.cogitator.githubrepo.PayConiqApp
 import com.cogitator.githubrepo.model.data.Repo
 import com.cogitator.githubrepo.model.data.UserProfile
 import com.cogitator.githubrepo.network.IRetrofit
@@ -16,7 +16,7 @@ class UserViewModel : ViewModel() {
     lateinit var api: IRetrofit
 
     init {
-        PayCogApp.appComponent.inject(this)
+        PayConiqApp.appComponent.inject(this)
     }
 
 
