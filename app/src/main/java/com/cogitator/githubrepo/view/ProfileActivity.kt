@@ -1,19 +1,34 @@
 package com.cogitator.githubrepo.view
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
+import android.graphics.Rect
+import android.graphics.Typeface
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.SpannableString
+import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.widget.TextView
+import android.widget.Toast
 import com.cogitator.githubrepo.R
 import com.cogitator.githubrepo.model.data.Repo
 import com.cogitator.githubrepo.model.data.UserProfile
 import com.cogitator.githubrepo.network.NetworkUtils
 import com.cogitator.githubrepo.utils.loading
 import com.cogitator.githubrepo.viewModel.UserViewModel
+import com.freeankit.taptarget.TapTarget
+import com.freeankit.taptarget.TapTargetSequence
+import com.freeankit.taptarget.TapTargetView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -169,7 +184,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun scrollListener() {
-        recyclerView_repo.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerView_repo.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -213,11 +228,14 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateUI(repos: List<Repo>) {
 
         with(repoAdapter) {
-            if (currentPage == 1)
+            if (currentPage == 1) {
                 clearItems()
+//                callTapTarget()
+            }
             addItems(repos)
             progressBar.visibility = View.GONE
         }
+
     }
 
 
@@ -234,14 +252,14 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-//    private fun saveUser(userProfile: UserProfile) {
-//        RealmManager.createUserDao().saveUserProfileData(userProfile)
-//    }
-//
-//    private fun getUserFromDB(): UserProfile? {
-//        return RealmManager.createUserDao().getUserProfileData()
-//
-//    }
-
+    @SuppressLint("ResourceAsColor")
+    fun showSnackBar(message: String) {
+        val sb = Snackbar.make(findViewById<View>(android.R.id.content), message, Snackbar.LENGTH_SHORT)
+        val sbView = sb.view
+        sbView.setBackgroundColor(R.color.construction_color)
+        val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
+        textView.setTextColor(R.color.white)
+        sb.show()
+    }
 
 }

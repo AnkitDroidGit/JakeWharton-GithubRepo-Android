@@ -8,7 +8,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.cogitator.githubrepo"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -67,7 +67,9 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     //foldingkit
-    implementation 'com.cogitator.foldingkit:foldingkit:1.0.0'
+    implementation 'com.cogitator.foldingkit:foldingkit:1.0.1'
+    //tap target
+    implementation 'com.freeankit.taptarget:taptarget:1.0.0'
 
 
 }
