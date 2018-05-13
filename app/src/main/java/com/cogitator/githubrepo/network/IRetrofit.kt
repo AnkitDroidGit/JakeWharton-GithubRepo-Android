@@ -1,8 +1,7 @@
 package com.cogitator.githubrepo.network
 
-import com.cogitator.githubrepo.model.Repo
-import com.cogitator.githubrepo.model.UserProfile
-import dagger.Provides
+import com.cogitator.githubrepo.model.data.Repo
+import com.cogitator.githubrepo.model.data.UserProfile
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,7 +18,7 @@ interface IRetrofit {
 
 
     @GET("/users/{user}/repos")
-    fun getUserAllRepository(@Path("user") user: String, @Query("visibility") visibility: String): Observable<List<Repo>>
+    fun getUserAllRepository(@Path("user") user: String, @Query("per_page") count: Int, @Query("page") page: Int): Observable<List<Repo>>
 
 //
 //    @GET("/users/{user}/followers")

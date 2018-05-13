@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cogitator.githubrepo.R
-import com.cogitator.githubrepo.model.Repo
+import com.cogitator.githubrepo.model.data.Repo
 import kotlinx.android.synthetic.main.repo_item.view.*
 
 /**

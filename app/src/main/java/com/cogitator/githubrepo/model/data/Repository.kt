@@ -1,5 +1,11 @@
-package com.cogitator.githubrepo.model
+package com.cogitator.githubrepo.model.data
+
+import com.cogitator.githubrepo.PayCogApp
 import com.google.gson.annotations.SerializedName
+import io.realm.*
+import io.realm.annotations.PrimaryKey
+import javax.inject.Inject
+
 
 /**
  * @author Ankit Kumar (ankitdroiddeveloper@gmail.com) on 12/05/2018 (MM/DD/YYYY)
@@ -132,63 +138,86 @@ data class Repo(@SerializedName("stargazers_count")
                 val forksCount: Int)
 
 data class UserProfile(@SerializedName("gists_url")
-                       val gistsUrl: String ,
+                       val gistsUrl: String,
                        @SerializedName("repos_url")
-                       val reposUrl: String ,
+                       val reposUrl: String,
                        @SerializedName("following_url")
-                       val followingUrl: String ,
+                       val followingUrl: String,
                        @SerializedName("bio")
                        val bio: String?,
                        @SerializedName("created_at")
-                       val createdAt: String ,
+                       val createdAt: String,
                        @SerializedName("login")
-                       val login: String ,
+                       val login: String,
                        @SerializedName("type")
-                       val type: String ,
+                       val type: String,
                        @SerializedName("blog")
-                       val blog: String? ,
+                       val blog: String?,
                        @SerializedName("subscriptions_url")
-                       val subscriptionsUrl: String ,
+                       val subscriptionsUrl: String,
                        @SerializedName("updated_at")
-                       val updatedAt: String ,
+                       val updatedAt: String,
                        @SerializedName("site_admin")
                        val siteAdmin: Boolean = false,
                        @SerializedName("company")
-                       val company: String? ,
+                       val company: String?,
                        @SerializedName("id")
                        val id: Int = 0,
                        @SerializedName("public_repos")
                        val publicRepos: Int = 0,
                        @SerializedName("gravatar_id")
-                       val gravatarId: String ,
+                       val gravatarId: String,
                        @SerializedName("email")
-                       val email: String? ,
+                       val email: String?,
                        @SerializedName("organizations_url")
-                       val organizationsUrl: String ,
+                       val organizationsUrl: String,
                        @SerializedName("hireable")
                        val hireable: Boolean = false,
                        @SerializedName("starred_url")
-                       val starredUrl: String ,
+                       val starredUrl: String,
                        @SerializedName("followers_url")
-                       val followersUrl: String ,
+                       val followersUrl: String,
                        @SerializedName("public_gists")
                        val publicGists: Int = 0,
                        @SerializedName("url")
-                       val url: String ,
+                       val url: String,
                        @SerializedName("received_events_url")
-                       val receivedEventsUrl: String ,
+                       val receivedEventsUrl: String,
                        @SerializedName("followers")
                        val followers: Int = 0,
                        @SerializedName("avatar_url")
-                       val avatarUrl: String ,
+                       val avatarUrl: String,
                        @SerializedName("events_url")
-                       val eventsUrl: String ,
+                       val eventsUrl: String,
                        @SerializedName("html_url")
-                       val htmlUrl: String ,
+                       val htmlUrl: String,
                        @SerializedName("following")
                        val following: Int = 0,
                        @SerializedName("name")
-                       val name: String ,
+                       val name: String,
                        @SerializedName("location")
                        val location: String?)
+
+class LocalRepository @Inject constructor() {
+    private var realm: Realm
+
+    init {
+        Realm.init(PayCogApp().getContext())
+
+        val realmConfiguration = RealmConfiguration.Builder().build()
+        // Create a new empty instance of Realm
+        realm = Realm.getInstance(realmConfiguration)
+    }
+
+//    fun saveRepos(repoItems: List<Repo>) {
+//        realm.beginTransaction()
+//        val storedItems = realm.copyToRealmOrUpdate(repoItems)
+//        realm.commitTransaction()
+//    }
+//
+//    fun loadRepos(): RealmResults<Repo> {
+//        // Pull all the repos from the realm
+//        return realm.where(Repo::class.java).findAll()
+//    }
+}
 

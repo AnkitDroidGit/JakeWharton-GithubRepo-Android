@@ -2,8 +2,8 @@ package com.cogitator.githubrepo.viewModel
 
 import android.arch.lifecycle.ViewModel
 import com.cogitator.githubrepo.PayCogApp
-import com.cogitator.githubrepo.model.Repo
-import com.cogitator.githubrepo.model.UserProfile
+import com.cogitator.githubrepo.model.data.Repo
+import com.cogitator.githubrepo.model.data.UserProfile
 import com.cogitator.githubrepo.network.IRetrofit
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -24,8 +24,8 @@ class UserViewModel : ViewModel() {
         return api.getUserProfile(userId)
     }
 
-    fun getRepository(userId: String): Observable<List<Repo>> {
-        return api.getUserAllRepository(userId, "all")
+    fun getRepository(userId: String, page :Int): Observable<List<Repo>> {
+        return api.getUserAllRepository(userId, 15, page)
 
     }
 
