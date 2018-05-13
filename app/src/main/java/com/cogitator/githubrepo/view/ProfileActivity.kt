@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import com.cogitator.githubrepo.R
-import com.cogitator.githubrepo.model.data.LocalRepository
 import com.cogitator.githubrepo.model.data.Repo
 import com.cogitator.githubrepo.model.data.UserProfile
 import com.cogitator.githubrepo.network.NetworkUtils
@@ -28,6 +26,7 @@ import kotlinx.android.synthetic.main.user_profile.*
  * @author Ankit Kumar (ankitdroiddeveloper@gmail.com) on 12/05/2018 (MM/DD/YYYY)
  */
 class ProfileActivity : AppCompatActivity() {
+
     private var model: UserViewModel? = null
     private var subscriptions = CompositeDisposable()
 
@@ -76,7 +75,7 @@ class ProfileActivity : AppCompatActivity() {
                     ?.subscribeOn(Schedulers.io())
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({
-                        //                        saveUser(it)
+                        //saveUser(it)
                         updateProfile(it)
                         print("Response => $it")
                     }, { e ->
@@ -148,7 +147,8 @@ class ProfileActivity : AppCompatActivity() {
             setHasFixedSize(true)
             mLinearLayoutManager = LinearLayoutManager(context)
             recyclerView_repo.layoutManager = mLinearLayoutManager
-            repoAdapter = RepoAdapter(null)
+            repoAdapter = RepoAdapter()
+            repoAdapter.setDefaultRequestBtnClickListener(View.OnClickListener { })
             recyclerView_repo.adapter = repoAdapter
             if (NetworkUtils().isNetworkAvailable(context)) {
                 model?.getRepository("JakeWharton", currentPage)
@@ -186,7 +186,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleThreshold) {
                     // End has been reached
-
+                    progressBar.visibility = View.VISIBLE
                     // Do something
                     currentPage++
 
@@ -216,6 +216,7 @@ class ProfileActivity : AppCompatActivity() {
             if (currentPage == 1)
                 clearItems()
             addItems(repos)
+            progressBar.visibility = View.GONE
         }
     }
 

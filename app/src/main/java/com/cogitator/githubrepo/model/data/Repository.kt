@@ -1,5 +1,6 @@
 package com.cogitator.githubrepo.model.data
 
+import android.view.View
 import com.cogitator.githubrepo.PayCogApp
 import com.google.gson.annotations.SerializedName
 import io.realm.*
@@ -135,7 +136,8 @@ data class Repo(@SerializedName("stargazers_count")
                 val watchersCount: Int,
                 val homepage: String,
                 @SerializedName("forks_count")
-                val forksCount: Int)
+                val forksCount: Int,
+                var requestBtnClickListener: View.OnClickListener?)
 
 data class UserProfile(@SerializedName("gists_url")
                        val gistsUrl: String,

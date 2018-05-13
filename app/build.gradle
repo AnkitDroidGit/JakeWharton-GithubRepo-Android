@@ -8,7 +8,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.cogitator.githubrepo"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -65,6 +65,9 @@ dependencies {
     //ViewModel
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    //foldingkit
+    implementation 'com.cogitator.foldingkit:foldingkit:1.0.0'
 
 
 }
